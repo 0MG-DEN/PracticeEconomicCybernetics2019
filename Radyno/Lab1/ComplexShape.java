@@ -10,25 +10,21 @@ import java.awt.geom.Rectangle2D;
 
 public class ComplexShape implements Shape {
 
-	private Shape ellipse, rectangle;
 	private Area shapeArea = new Area();
-	private double angle = 0;
 	private final int width, height;
 	
-	public ComplexShape(int width, int height) throws IllegalArgumentException {
+	public ComplexShape(final int width, final int height) throws IllegalArgumentException {
 		if(width <= 0 || height <= 0)
 			throw new IllegalArgumentException("0 or negative value is passed as an argument");
 		
 		this.width = width;
 		this.height = height;
-		setAngle(angle);
+		setAngle(0);
 	}
 	
-	public void setAngle(double angle) {
-		this.angle = angle;
-		
-		rectangle = AffineTransform.getRotateInstance(angle, width / 2, height / 2).createTransformedShape(new Rectangle(width, height));
-		ellipse = AffineTransform.getRotateInstance(-angle, width / 2, height / 2).createTransformedShape(new Ellipse2D.Double(0, 0, width, height));
+	public void setAngle(final double angle) {
+		Shape rectangle = AffineTransform.getRotateInstance(angle, width / 2, height / 2).createTransformedShape(new Rectangle(width, height));
+		Shape ellipse = AffineTransform.getRotateInstance(-angle, width / 2, height / 2).createTransformedShape(new Ellipse2D.Double(0, 0, width, height));
 
 		if(!shapeArea.isEmpty())
 			shapeArea.reset();
@@ -37,22 +33,22 @@ public class ComplexShape implements Shape {
 	}
 	
 	@Override
-	public boolean contains(Point2D arg0) {
+	public boolean contains(final Point2D arg0) {
 		return shapeArea.contains(arg0);
 	}
 
 	@Override
-	public boolean contains(Rectangle2D arg0) {
+	public boolean contains(final Rectangle2D arg0) {
 		return shapeArea.contains(arg0);
 	}
 
 	@Override
-	public boolean contains(double arg0, double arg1) {
+	public boolean contains(final double arg0, final double arg1) {
 		return shapeArea.contains(arg0, arg1);
 	}
 
 	@Override
-	public boolean contains(double arg0, double arg1, double arg2, double arg3) {
+	public boolean contains(final double arg0, final double arg1, final double arg2, final double arg3) {
 		return shapeArea.contains(arg0, arg1, arg2, arg3);
 	}
 
@@ -67,22 +63,22 @@ public class ComplexShape implements Shape {
 	}
 
 	@Override
-	public PathIterator getPathIterator(AffineTransform arg0) {
+	public PathIterator getPathIterator(final AffineTransform arg0) {
 		return shapeArea.getPathIterator(arg0);
 	}
 
 	@Override
-	public PathIterator getPathIterator(AffineTransform arg0, double arg1) {
+	public PathIterator getPathIterator(final AffineTransform arg0, double arg1) {
 		return shapeArea.getPathIterator(arg0, arg1);
 	}
 
 	@Override
-	public boolean intersects(Rectangle2D arg0) {
+	public boolean intersects(final Rectangle2D arg0) {
 		return shapeArea.intersects(arg0);
 	}
 
 	@Override
-	public boolean intersects(double arg0, double arg1, double arg2, double arg3) {
+	public boolean intersects(final double arg0, final double arg1, final double arg2, final double arg3) {
 		return shapeArea.intersects(arg0, arg1, arg2, arg3);
 	}
 

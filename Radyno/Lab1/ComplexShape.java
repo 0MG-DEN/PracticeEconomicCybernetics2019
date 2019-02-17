@@ -23,8 +23,8 @@ public class ComplexShape implements Shape {
 	}
 	
 	public void setAngle(final double angle) {
-		Shape rectangle = AffineTransform.getRotateInstance(angle, width / 2, height / 2).createTransformedShape(new Rectangle(width, height));
-		Shape ellipse = AffineTransform.getRotateInstance(-angle, width / 2, height / 2).createTransformedShape(new Ellipse2D.Double(0, 0, width, height));
+		final Shape rectangle = AffineTransform.getRotateInstance(angle, width / 2, height / 2).createTransformedShape(new Rectangle(width, height));
+		final Shape ellipse = AffineTransform.getRotateInstance(-angle, width / 2, height / 2).createTransformedShape(new Ellipse2D.Double(0, 0, width, height));
 
 		if(!shapeArea.isEmpty())
 			shapeArea.reset();
@@ -68,7 +68,7 @@ public class ComplexShape implements Shape {
 	}
 
 	@Override
-	public PathIterator getPathIterator(final AffineTransform arg0, double arg1) {
+	public PathIterator getPathIterator(final AffineTransform arg0, final double arg1) {
 		return shapeArea.getPathIterator(arg0, arg1);
 	}
 

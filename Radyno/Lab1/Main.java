@@ -8,7 +8,7 @@ public class Main {
     private static final int SHAPE_WIDTH = 200, SHAPE_HEIGHT = 100;
     private static final int MAX_ANGLE = 360;
     private static final int DEFAULT_SHAPE_COLOR = 0x000000, DEFAULT_FILL_COLOR = 0xAABBCC;
-    private static final float DEFAULT_STOKE_WIDTH = 2.0f;
+    private static final float DEFAULT_STROKE_WIDTH = 2.0f;
 
     private static final ComplexShape shape = new ComplexShape(SHAPE_WIDTH, SHAPE_HEIGHT);
     private static double degAngle, radAngle;
@@ -28,7 +28,7 @@ public class Main {
             final int fillColorValue = Integer.parseInt(fillColorStr, 16);
             fillColor = new Color(fillColorValue);
         } catch (Exception ignored) {
-            stroke = new BasicStroke(DEFAULT_STOKE_WIDTH);
+            stroke = new BasicStroke(DEFAULT_STROKE_WIDTH);
             shapeColor = new Color(DEFAULT_SHAPE_COLOR);
             fillColor = new Color(DEFAULT_FILL_COLOR);
         }

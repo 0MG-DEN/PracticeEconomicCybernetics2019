@@ -1,16 +1,16 @@
-import java.awt.*;
+package package1;
 
+import java.awt.*;
 import javax.swing.*;
 
-
 public class Main {
-    private static final int
-            WINDOW_WIDTH = 300,
-            WINDOW_HEIGHT = 400,
-            SHAPE_WIDTH = 200,
-            SHAPE_HEIGHT = 100;
+    private static final int WINDOW_WIDTH = 300, WINDOW_HEIGHT = 400;
+    private static final int SHAPE_WIDTH = 200, SHAPE_HEIGHT = 100;
+    private static final int MAX_ANGLE = 360;
+    private static final int DEFAULT_SHAPE_COLOR = 0x000000, DEFAULT_FILL_COLOR = 0xAABBCC;
+    private static final float DEFAULT_STOKE_WIDTH = 2.0f;
 
-    private static ComplexShape shape = new ComplexShape(SHAPE_WIDTH, SHAPE_HEIGHT);
+    private static final ComplexShape shape = new ComplexShape(SHAPE_WIDTH, SHAPE_HEIGHT);
     private static double degAngle, radAngle;
     private static Stroke stroke;
     private static Color shapeColor, fillColor;
@@ -28,42 +28,18 @@ public class Main {
             final int fillColorValue = Integer.parseInt(fillColorStr, 16);
             fillColor = new Color(fillColorValue);
         } catch (Exception ignored) {
-            stroke = new BasicStroke(2.0f);
-            shapeColor = new Color(0x000000);
-            fillColor = new Color(0xAABBCC);
+            stroke = new BasicStroke(DEFAULT_STOKE_WIDTH);
+            shapeColor = new Color(DEFAULT_SHAPE_COLOR);
+            fillColor = new Color(DEFAULT_FILL_COLOR);
         }
 
         final JFrame frame = new JFrame();
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-        final JPanel panel = new JPanel() {
-            private static final long serialVersionUID = 1L;
-
-            public void paint(final Graphics graphics) {
-                Graphics2D g2d = (Graphics2D) graphics;
-                g2d.setColor(Main.BACKGROUND_COLOR);
-                g2d.fillRect(0, 0, getWidth(), getHeight());
-                g2d.setColor(Main.shapeColor);
-
-                //antialias
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-                //translating shape so its center matches the frame center
-                g2d.translate(getWidth() / 2 - shape.getBounds2D().getCenterX(), getHeight() / 2 - shape.getBounds2D().getCenterY());
-
-                //drawing
-                g2d.setStroke(Main.stroke);
-                g2d.draw(shape);
-                g2d.setColor(Main.fillColor);
-                g2d.fill(shape);
-            }
-        };
+        final ComplexShapeJPanel panel = new ComplexShapeJPanel(shape, BACKGROUND_COLOR, shapeColor, fillColor, stroke);
 
         final Timer timer = new Timer(5, arg0 -> {
-            if (degAngle < 360)
-                degAngle += 1;
-            else
-                degAngle = 1;
+            degAngle = (degAngle < MAX_ANGLE) ? degAngle + 1 : 1;
             radAngle = degAngle * Math.PI / 180;
             shape.setAngle(radAngle);
 

@@ -1,12 +1,7 @@
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
+package package1;
 
+import java.awt.*;
+import java.awt.geom.*;
 
 public class ComplexShape implements Shape {
 
@@ -14,8 +9,9 @@ public class ComplexShape implements Shape {
 	private final int width, height;
 	
 	public ComplexShape(final int width, final int height) throws IllegalArgumentException {
-		if(width <= 0 || height <= 0)
+		if(width <= 0 || height <= 0) {
 			throw new IllegalArgumentException("0 or negative value is passed as an argument");
+		}
 		
 		this.width = width;
 		this.height = height;
@@ -26,8 +22,9 @@ public class ComplexShape implements Shape {
 		final Shape rectangle = AffineTransform.getRotateInstance(angle, width / 2, height / 2).createTransformedShape(new Rectangle(width, height));
 		final Shape ellipse = AffineTransform.getRotateInstance(-angle, width / 2, height / 2).createTransformedShape(new Ellipse2D.Double(0, 0, width, height));
 
-		if(!shapeArea.isEmpty())
+		if(!shapeArea.isEmpty()) {
 			shapeArea.reset();
+		}
 		shapeArea.add(new Area(rectangle));
 		shapeArea.add(new Area(ellipse));
 	}

@@ -6,13 +6,8 @@ public class Main {
     private static final int WINDOW_WIDTH = 300, WINDOW_HEIGHT = 400;
     private static final int SHAPE_WIDTH = 200, SHAPE_HEIGHT = 100;
     private static final int MAX_ANGLE = 360;
-<<<<<<< HEAD
     private static final int DEF_SHAPE_CLR = 0x000000, DEF_FILL_CLR = 0xAABBCC;
     private static final float DEF_LINE_WIDTH = 2.0f;
-=======
-    private static final int DEFAULT_SHAPE_COLOR = 0x000000, DEFAULT_FILL_COLOR = 0xAABBCC;
-    private static final float DEFAULT_STROKE_WIDTH = 2.0f;
->>>>>>> 6d94c045824c213edf03774f3d46bf53a2b752d8
 
     private static final ComplexShape SHAPE = new ComplexShape(SHAPE_WIDTH, SHAPE_HEIGHT);
     private static double degAngle, radAngle;
@@ -32,15 +27,9 @@ public class Main {
             final int fillColorValue = Integer.parseInt(fillColorStr, 16);
             fillColor = new Color(fillColorValue);
         } catch (Exception ignored) {
-<<<<<<< HEAD
             stroke = new BasicStroke(DEF_LINE_WIDTH);
             shapeColor = new Color(DEF_SHAPE_CLR);
             fillColor = new Color(DEF_FILL_CLR);
-=======
-            stroke = new BasicStroke(DEFAULT_STROKE_WIDTH);
-            shapeColor = new Color(DEFAULT_SHAPE_COLOR);
-            fillColor = new Color(DEFAULT_FILL_COLOR);
->>>>>>> 6d94c045824c213edf03774f3d46bf53a2b752d8
         }
 
         final JFrame frame = new JFrame();

@@ -2,7 +2,7 @@ package package1;
 import java.awt.*;
 import javax.swing.*;
 
-public class Main {
+public final class Main {
     private static final int WINDOW_WIDTH = 300, WINDOW_HEIGHT = 400;
     private static final int SHAPE_WIDTH = 200, SHAPE_HEIGHT = 100;
     private static final int MAX_ANGLE = 360;

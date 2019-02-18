@@ -13,8 +13,11 @@ public class Main {
     private static double degAngle, radAngle;
     private static final Color BACKGROUND_COLOR = new Color(0xFFFFFF);
 
+    private Main() {}
+
     public static void main(final String[] args) {
-        Color shapeColor, fillColor;
+        Color shapeColor;
+        Color fillColor;
         Stroke stroke;
         try {
             final String strokeWidthStr = args[0];

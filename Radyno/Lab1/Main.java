@@ -1,5 +1,4 @@
 package package1;
-
 import java.awt.*;
 import javax.swing.*;
 
@@ -7,16 +6,16 @@ public class Main {
     private static final int WINDOW_WIDTH = 300, WINDOW_HEIGHT = 400;
     private static final int SHAPE_WIDTH = 200, SHAPE_HEIGHT = 100;
     private static final int MAX_ANGLE = 360;
-    private static final int DEFAULT_SHAPE_COLOR = 0x000000, DEFAULT_FILL_COLOR = 0xAABBCC;
-    private static final float DEFAULT_STOKE_WIDTH = 2.0f;
+    private static final int DEF_SHAPE_CLR = 0x000000, DEF_FILL_CLR = 0xAABBCC;
+    private static final float DEF_LINE_WIDTH = 2.0f;
 
-    private static final ComplexShape shape = new ComplexShape(SHAPE_WIDTH, SHAPE_HEIGHT);
+    private static final ComplexShape SHAPE = new ComplexShape(SHAPE_WIDTH, SHAPE_HEIGHT);
     private static double degAngle, radAngle;
-    private static Stroke stroke;
-    private static Color shapeColor, fillColor;
     private static final Color BACKGROUND_COLOR = new Color(0xFFFFFF);
 
     public static void main(final String[] args) {
+        Color shapeColor, fillColor;
+        Stroke stroke;
         try {
             final String strokeWidthStr = args[0];
             final float strokeWidth = Float.parseFloat(strokeWidthStr);
@@ -28,20 +27,20 @@ public class Main {
             final int fillColorValue = Integer.parseInt(fillColorStr, 16);
             fillColor = new Color(fillColorValue);
         } catch (Exception ignored) {
-            stroke = new BasicStroke(DEFAULT_STOKE_WIDTH);
-            shapeColor = new Color(DEFAULT_SHAPE_COLOR);
-            fillColor = new Color(DEFAULT_FILL_COLOR);
+            stroke = new BasicStroke(DEF_LINE_WIDTH);
+            shapeColor = new Color(DEF_SHAPE_CLR);
+            fillColor = new Color(DEF_FILL_CLR);
         }
 
         final JFrame frame = new JFrame();
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-        final ComplexShapeJPanel panel = new ComplexShapeJPanel(shape, BACKGROUND_COLOR, shapeColor, fillColor, stroke);
+        final ComplexShapeJPanel panel = new ComplexShapeJPanel(SHAPE, BACKGROUND_COLOR, shapeColor, fillColor, stroke);
 
         final Timer timer = new Timer(5, arg0 -> {
-            degAngle = (degAngle < MAX_ANGLE) ? degAngle + 1 : 1;
+            degAngle = degAngle < MAX_ANGLE ? degAngle + 1 : 1;
             radAngle = degAngle * Math.PI / 180;
-            shape.setAngle(radAngle);
+            SHAPE.setAngle(radAngle);
 
             panel.revalidate();
             panel.repaint();

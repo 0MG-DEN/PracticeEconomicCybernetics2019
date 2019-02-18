@@ -1,5 +1,4 @@
 package package1;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,7 +7,8 @@ public class ComplexShapeJPanel extends JPanel {
     private final Color backgroundColor, shapeColor, fillColor;
     private final Stroke stroke;
 
-    public ComplexShapeJPanel(ComplexShape shape, Color backgroundColor, Color shapeColor, Color fillColor, Stroke stroke) {
+    public ComplexShapeJPanel(final ComplexShape shape, final Color backgroundColor, final Color shapeColor, final Color fillColor, final Stroke stroke) {
+        super();
         this.shape = shape;
         this.backgroundColor = backgroundColor;
         this.shapeColor = shapeColor;
@@ -19,7 +19,7 @@ public class ComplexShapeJPanel extends JPanel {
     @Override
     public void paint(final Graphics graphics) {
         super.paint(graphics);
-        Graphics2D g2d = (Graphics2D) graphics;
+        final Graphics2D g2d = (Graphics2D) graphics;
         g2d.setColor(backgroundColor);
         g2d.fillRect(0, 0, getWidth(), getHeight());
         g2d.setColor(shapeColor);

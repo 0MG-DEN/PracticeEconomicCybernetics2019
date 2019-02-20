@@ -16,7 +16,7 @@ public class ComplexShape implements Shape {
         final AffineTransform transform = AffineTransform.getTranslateInstance(panel.getWidth() / 4, panel.getHeight() / 2);
 
         Shape outterEllipse = new Ellipse2D.Double(-WIDTH / 2, -HEIGHT / 2, WIDTH, HEIGHT);
-        Shape innerEllipse = new Ellipse2D.Double(-(WIDTH - BORDER) / 2, -(HEIGHT - BORDER) / 2, (WIDTH - BORDER), (HEIGHT - BORDER));
+        Shape innerEllipse = new Ellipse2D.Double((BORDER - WIDTH) / 2, (BORDER - HEIGHT) / 2, WIDTH - BORDER, HEIGHT - BORDER);
 
         final TextLayout textLayout = new TextLayout(LINE, font, fontRenderContext);
         outterEllipse = transform.createTransformedShape(outterEllipse);

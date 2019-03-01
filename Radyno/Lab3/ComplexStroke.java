@@ -12,7 +12,7 @@ public class ComplexStroke implements Stroke {
         final GeneralPath generalPath = new GeneralPath();
 
         final float[] floats = new float[6];
-        for (PathIterator pathIterator = shape.getPathIterator(null); !pathIterator.isDone(); pathIterator.next()) {
+        for (final PathIterator pathIterator = shape.getPathIterator(null); !pathIterator.isDone(); pathIterator.next()) {
             final int type = pathIterator.currentSegment(floats);
             switch (type) {
                 case PathIterator.SEG_CUBICTO:
@@ -20,10 +20,13 @@ public class ComplexStroke implements Stroke {
                 case PathIterator.SEG_LINETO: {
                     final double x1 = generalPath.getCurrentPoint().getX();
                     final double y1 = generalPath.getCurrentPoint().getY();
-                    final double x2 = floats[0], y2 = floats[1];
-                    final double x0 = (x2 + x1) / 2, y0 = (y2 + y1) / 2;
+                    final double x2 = floats[0];
+                    final double y2 = floats[1];
+                    final double x0 = (x2 + x1) / 2;
+                    final double y0 = (y2 + y1) / 2;
                     final double angle = Math.atan((y2 - y1) / (x2 - x1));
-                    final double sinD = AMPLITUDE * Math.sin(angle), cosD = AMPLITUDE * Math.cos(angle);
+                    final double sinD = AMPLITUDE * Math.sin(angle);
+                    final double cosD = AMPLITUDE * Math.cos(angle);
                     generalPath.lineTo(x1 - sinD, y1 + cosD);
                     generalPath.lineTo(x0 - sinD, y0 + cosD);
                     generalPath.lineTo(x0 + sinD, y0 - cosD);
@@ -36,6 +39,8 @@ public class ComplexStroke implements Stroke {
                     break;
                 case PathIterator.SEG_CLOSE:
                     generalPath.closePath();
+                    break;
+                default:
                     break;
             }
         }

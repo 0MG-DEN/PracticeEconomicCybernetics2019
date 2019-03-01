@@ -23,16 +23,17 @@ public class ComplexShape implements Shape {
         final int[] outerShapeX = new int[OUTER_SHAPE_SIZE];
         final int[] outerShapeY = new int[OUTER_SHAPE_SIZE];
 
-        double angle = START_ANGLE, R;
+        double r;
+        double angle = START_ANGLE;
         for (int i = 0; angle < OUTER_SHAPE_ANGLE; angle += ANGLE_STEP, ++i) {
-            R = (int) (2 * SIZE * Math.cos(Math.PI * angle / (3 * 180)));
-            outerShapeX[i] = (int) (R * Math.cos(Math.PI * angle / 180));
-            outerShapeY[i] = (int) (R * Math.sin(Math.PI * angle / 180));
+            r = (int) (2 * SIZE * Math.cos(Math.PI * angle / (3 * 180)));
+            outerShapeX[i] = (int) (r * Math.cos(Math.PI * angle / 180));
+            outerShapeY[i] = (int) (r * Math.sin(Math.PI * angle / 180));
         }
         for (int i = 0; angle < INNER_SHAPE_ANGLE; angle += ANGLE_STEP, ++i) {
-            R = (int) (2 * SIZE * Math.cos(Math.PI * angle / (3 * 180)));
-            innerShapeX[i] = (int) (R * Math.cos(Math.PI * angle / 180));
-            innerShapeY[i] = (int) (R * Math.sin(Math.PI * angle / 180));
+            r = (int) (2 * SIZE * Math.cos(Math.PI * angle / (3 * 180)));
+            innerShapeX[i] = (int) (r * Math.cos(Math.PI * angle / 180));
+            innerShapeY[i] = (int) (r * Math.sin(Math.PI * angle / 180));
         }
 
         Shape outerShape = new Polygon(outerShapeX, outerShapeY, OUTER_SHAPE_SIZE);

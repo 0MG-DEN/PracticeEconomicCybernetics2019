@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public final class Main {
-    private static final int WINDOW_HEIGHT = 400, WINDOW_WIDTH = 2 * WINDOW_HEIGHT;
+    private static final int WINDOW_HEIGHT = 500, WINDOW_WIDTH = 400;
 
     private Main() {}
 
@@ -15,6 +15,7 @@ public final class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.add(panel, BorderLayout.CENTER);
+        frame.setResizable(true);
         frame.setVisible(true);
     }
 }

@@ -18,6 +18,7 @@ public class PrintPreviewJPanel extends JPanel {
     }
 
     public PrintPreviewJPanel() {
+        super();
         this.index = 0;
     }
 

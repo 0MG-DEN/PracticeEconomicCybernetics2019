@@ -137,9 +137,6 @@ public class ComplexShape implements Shape, Printable {
                         moveY += FONT_SIZE;
                     }
                     return PAGE_EXISTS;
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace(System.out);
-                    return NO_SUCH_PAGE;
                 } catch (Exception e) {
                     e.printStackTrace(System.out);
                     return NO_SUCH_PAGE;

@@ -4,6 +4,12 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.print.*;
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.stream.Stream;
 
 public class ComplexShape implements Shape, Printable {
     private final Area shapeArea;
@@ -100,7 +106,7 @@ public class ComplexShape implements Shape, Printable {
     }
 
     @Override
-    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+    public int print(final Graphics graphics, final PageFormat pageFormat, final int pageIndex) throws PrinterException {
 
         switch (pageIndex) {
             case 0: {
@@ -121,14 +127,13 @@ public class ComplexShape implements Shape, Printable {
                 try {
                     pageFormat.setOrientation(PageFormat.PORTRAIT);
                     //fileName!
-                    final FileReader fileReader = new FileReader("G:\\Java-УП (задания)\\JavaAPI_4\\package1\\ComplexShape.java");
-                    final BufferedReader bufferedReader = new BufferedReader(fileReader);
+                    final Path path = Paths.get("G:\\Java-УП (задания)\\JavaAPI_4\\package1\\ComplexShape.java");
+                    final Stream<String> stringSteam = Files.lines(path, Charset.forName("windows-1251"));
                     final Font font = new Font("Arial", Font.PLAIN, FONT_SIZE);
                     graphics.setFont(font);
-                    String line;
                     int moveY = FONT_SIZE;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        graphics.drawString(line, (int) pageFormat.getImageableX(), (int) pageFormat.getImageableY() + moveY);
+                    for (final Iterator<String> stringIterator = stringSteam.iterator(); stringIterator.hasNext(); ) {
+                        graphics.drawString(stringIterator.next(), (int) pageFormat.getImageableX(), (int) pageFormat.getImageableY() + moveY);
                         moveY += FONT_SIZE;
                     }
                     return PAGE_EXISTS;
@@ -136,12 +141,13 @@ public class ComplexShape implements Shape, Printable {
                     e.printStackTrace(System.out);
                     return NO_SUCH_PAGE;
                 } catch (Exception e) {
+                    e.printStackTrace(System.out);
                     return NO_SUCH_PAGE;
                 }
             }
             default: {
                 return NO_SUCH_PAGE;
-			}
+            }
         }
     }
 }

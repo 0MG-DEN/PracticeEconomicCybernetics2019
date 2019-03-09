@@ -7,19 +7,20 @@ import java.awt.print.*;
 
 public final class Main {
     private static final int WINDOW_HEIGHT = 500, WINDOW_WIDTH = 400;
-    private static boolean added = false;
+    private static boolean added;
 
-    private static boolean isAdded() {
+    public static boolean isAdded() {
         return added;
     }
 
-    private static void setAdded(boolean added) {
+    public static void setAdded(final boolean added) {
         Main.added = added;
     }
 
     private Main() {}
 
     public static void main(final String[] args) {
+        added = false;
         final JFrame frame = new JFrame();
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,9 +36,9 @@ public final class Main {
         final JMenuItem printItem = new JMenuItem("Print");
         printItem.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
-                    PrinterJob printerJob = PrinterJob.getPrinterJob();
+                    final PrinterJob printerJob = PrinterJob.getPrinterJob();
                     if(printerJob.printDialog()) {
                         statusLabel.setText("Printing...");
                         PageFormat pageFormat = printerJob.defaultPage();
@@ -59,7 +60,7 @@ public final class Main {
         final JMenuItem page1PreviewItem = new JMenuItem("Preview page 1");
         page1PreviewItem.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 testPanel.setIndex(0);
                 if(!Main.isAdded()) {
                     frame.getContentPane().remove(panel);
@@ -73,7 +74,7 @@ public final class Main {
         final JMenuItem page2PreviewItem = new JMenuItem("Preview page 2");
         page2PreviewItem.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 testPanel.setIndex(1);
                 if(!Main.isAdded()) {
                     frame.getContentPane().remove(panel);

@@ -25,8 +25,9 @@ public class ComplexStroke implements Stroke {
                     final double x0 = (x2 + x1) / 2;
                     final double y0 = (y2 + y1) / 2;
                     final double angle = Math.atan((y2 - y1) / (x2 - x1));
-                    final double sinD = AMPLITUDE * Math.sin(angle) * (x2 - x1 >= 0 ? -1 : 1);
-                    final double cosD = AMPLITUDE * Math.cos(angle) * (x2 - x1 >= 0 ? -1 : 1);
+                    final int direction = getDirection(x1, x2);
+                    final double sinD = AMPLITUDE * Math.sin(angle) * direction;
+                    final double cosD = AMPLITUDE * Math.cos(angle) * direction;
                     generalPath.lineTo(x1 - sinD, y1 + cosD);
                     generalPath.lineTo(x0 - sinD, y0 + cosD);
                     generalPath.lineTo(x0 + sinD, y0 - cosD);
@@ -46,5 +47,9 @@ public class ComplexStroke implements Stroke {
         }
 
         return STROKE.createStrokedShape(generalPath);
+    }
+
+    private int getDirection(final double x1, final double x2) {
+        return x2 - x1 >= 0 ? -1 : 1;
     }
 }

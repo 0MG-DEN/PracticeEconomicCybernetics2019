@@ -3,11 +3,8 @@ package package1;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.print.*;
-import java.io.*;
+import java.nio.file.*;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.stream.Stream;
 

@@ -29,7 +29,7 @@ public class PeripheralTreeModel implements TreeModel {
 
     @Override
     public Object getChild(final Object parent, final int index) {
-        if (parent == ROOT) {
+        if (parent.equals(ROOT)) {
             return TYPES[index];
         }
         for (int i = 0; i < TYPES.length; ++i) {

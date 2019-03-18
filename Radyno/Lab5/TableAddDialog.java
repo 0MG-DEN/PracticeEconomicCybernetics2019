@@ -10,7 +10,7 @@ public class TableAddDialog extends JDialog {
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
-        if (Peripheral.brandsList.isEmpty()) {
+        if (Peripheral.BRANDS_LIST.isEmpty()) {
             Peripheral.createBrandsList();
         }
 
@@ -19,13 +19,13 @@ public class TableAddDialog extends JDialog {
 
         final JLabel brandLabel = new JLabel("Brand");
         final JComboBox<String> brandsBox = new JComboBox<>();
-        for (final String brand : Peripheral.brandsList) {
+        for (final String brand : Peripheral.BRANDS_LIST) {
             brandsBox.addItem(brand);
         }
 
         final JLabel typeLabel = new JLabel("Type");
         final JComboBox<String> typeBox = new JComboBox<>();
-        for (final String category : PeripheralTreeModel.types) {
+        for (final String category : PeripheralTreeModel.TYPES) {
             typeBox.addItem(category);
         }
 
@@ -39,8 +39,8 @@ public class TableAddDialog extends JDialog {
                 final String name = nameField.getText();
                 final String brand = String.valueOf(brandsBox.getSelectedItem());
                 int type = 0;
-                for (int i = 0; i < PeripheralTreeModel.types.length; ++i) {
-                    if (PeripheralTreeModel.types[i].equals(String.valueOf(typeBox.getSelectedItem()))) {
+                for (int i = 0; i < PeripheralTreeModel.TYPES.length; ++i) {
+                    if (PeripheralTreeModel.TYPES[i].equals(String.valueOf(typeBox.getSelectedItem()))) {
                         type = i;
                         break;
                     }
@@ -53,21 +53,20 @@ public class TableAddDialog extends JDialog {
         final KeyListener keyListener = new KeyListener() {
             @Override
             public void keyTyped(final KeyEvent e) {
+                //not needed
             }
 
             @Override
             public void keyPressed(final KeyEvent e) {
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_ENTER:
-                        addButton.doClick();
-                    default:
-                        break;
+                final int i = e.getKeyCode();
+                if (i == KeyEvent.VK_ENTER) {
+                    addButton.doClick();
                 }
             }
 
             @Override
             public void keyReleased(final KeyEvent e) {
-
+                //not needed
             }
         };
         nameField.addKeyListener(keyListener);

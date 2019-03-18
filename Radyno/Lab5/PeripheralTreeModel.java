@@ -6,11 +6,11 @@ import javax.swing.event.*;
 
 public class PeripheralTreeModel implements TreeModel {
 
-    public static final String[] types = new String[]{"Input", "Output", "Storage", "Network", "testType"};
+    public static final String[] TYPES = new String[]{"Input", "Output", "Storage", "Network", "testType"};
 
     private List<TreeModelListener> listeners = new ArrayList<>();
-    private final String root = "Peripherals";
-    public PeripheralTableModel[] peripheralTables = new PeripheralTableModel[types.length];
+    private static final String root = "Peripherals";
+    public PeripheralTableModel[] peripheralTables = new PeripheralTableModel[TYPES.length];
 
     public PeripheralTreeModel(final boolean randomize) {
         for (int i = 0; i < peripheralTables.length; ++i) {
@@ -19,7 +19,7 @@ public class PeripheralTreeModel implements TreeModel {
     }
 
     public void sortItems(final Comparator<Peripheral> comparator) {
-        for(final PeripheralTableModel table : peripheralTables) {
+        for (final PeripheralTableModel table : peripheralTables) {
             table.sort(comparator);
         }
     }
@@ -32,10 +32,10 @@ public class PeripheralTreeModel implements TreeModel {
     @Override
     public Object getChild(final Object parent, final int index) {
         if (parent == root) {
-            return types[index];
+            return TYPES[index];
         }
-        for (int i = 0; i < types.length; ++i) {
-            if (parent == types[i] && index == 0) {
+        for (int i = 0; i < TYPES.length; ++i) {
+            if (parent == TYPES[i] && index == 0) {
                 return peripheralTables[i];
             }
         }
@@ -45,10 +45,10 @@ public class PeripheralTreeModel implements TreeModel {
     @Override
     public int getChildCount(final Object parent) {
         if (parent == root) {
-            return types.length;
+            return TYPES.length;
         }
-        for (final String type : types) {
-            if (parent == type) {
+        for (final String type : TYPES) {
+            if (parent.equals(type)) {
                 return 1;
             }
         }
@@ -57,10 +57,10 @@ public class PeripheralTreeModel implements TreeModel {
 
     @Override
     public boolean isLeaf(final Object node) {
-        if (node == root) {
+        if (node.equals(root)) {
             return false;
         }
-        for (final String type : types) {
+        for (final String type : TYPES) {
             if (node == type) {
                 return false;
             }
@@ -70,15 +70,15 @@ public class PeripheralTreeModel implements TreeModel {
 
     @Override
     public int getIndexOfChild(final Object parent, final Object child) {
-        if (parent == root) {
-            for (int i = 0; i < types.length; ++i) {
-                if (child == types[i]) {
+        if (parent.equals(root)) {
+            for (int i = 0; i < TYPES.length; ++i) {
+                if (child == TYPES[i]) {
                     return i;
                 }
             }
         }
-        for (int i = 0; i < types.length; ++i) {
-            if (parent == types[i] && child == peripheralTables[i]) {
+        for (int i = 0; i < TYPES.length; ++i) {
+            if (parent == TYPES[i] && child == peripheralTables[i]) {
                 return i;
             }
         }

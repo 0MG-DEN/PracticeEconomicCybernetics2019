@@ -8,7 +8,7 @@ public class PeripheralTableModel implements TableModel {
     private static final int RAND_BASE_VAL = 10;
     private static final int RAND_MAX_VAL = 5;
     private static final int COST_RANGE = 1000;
-    private static final String[] columns = new String[]{"Name", "Brand", "Cost"};
+    private static final String[] COLUMNS = new String[]{"Name", "Brand", "Cost"};
 
     private List<TableModelListener> listeners = new ArrayList<>();
     private List<Peripheral> list;
@@ -20,7 +20,7 @@ public class PeripheralTableModel implements TableModel {
     public PeripheralTableModel(final boolean randomize) {
         this.list = new ArrayList<>();
         if (randomize) {
-            if (Peripheral.brandsList.isEmpty()) {
+            if (Peripheral.BRANDS_LIST.isEmpty()) {
                 Peripheral.createBrandsList();
             }
             final int itemCount = getRandomValue();
@@ -56,12 +56,12 @@ public class PeripheralTableModel implements TableModel {
 
     @Override
     public int getColumnCount() {
-        return columns.length;
+        return COLUMNS.length;
     }
 
     @Override
     public String getColumnName(final int columnIndex) {
-        return columns[columnIndex];
+        return COLUMNS[columnIndex];
     }
 
     @Override
@@ -84,7 +84,7 @@ public class PeripheralTableModel implements TableModel {
     @Override
     public Object getValueAt(final int rowIndex, final int columnIndex) {
         try {
-            Peripheral p = list.get(rowIndex);
+            final Peripheral p = list.get(rowIndex);
             switch (columnIndex) {
                 case 0:
                     return p.getName();
@@ -102,7 +102,7 @@ public class PeripheralTableModel implements TableModel {
 
     @Override
     public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex) {
-
+        //cells are not editable
     }
 
     @Override

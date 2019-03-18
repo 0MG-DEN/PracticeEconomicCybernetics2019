@@ -1,60 +1,56 @@
 package package1;
 
+import com.sun.istack.internal.NotNull;
+
 import java.util.*;
 
 public class Peripheral {
 
-    public final static List<String> brandsList = new ArrayList<>();
+    public final static List<String> BRANDS_LIST = new ArrayList<>();
 
-    private static final String[] brands = new String[]{"",
+    private static final String[] BRANDS = new String[]{"",
             "Apacer", "Seagate", "Smasung", "Toshiba", //storages
             "A4Tech", "ACME", "Apple", "BenQ", "Canyon", "Defender", "Dell", "Dialog", "Genesis", "HP", "HyperX",
             "Lenovo", "Logitech", "Microsoft", "MSI", "Razer", "SmartBuy", //input
             "Acer", "AOC", "ASUS", "BenQ", "Dell", "HP", "Lenovo", "LG", "NEC", "Philips", "Samsung" //output
     };
 
-    public static void createBrandsList() {
-        for (String brand : brands) {
-            if (!brandsList.contains(brand)) {
-                brandsList.add(brand);
-            }
-        }
-        Collections.sort(brandsList);
-    }
-
-    public static String getRandomBrand() {
-        if (brandsList.isEmpty()) {
-            createBrandsList();
-        }
-        return Peripheral.brandsList.get((int) (Math.random() * Peripheral.brandsList.size()));
-    }
-
     private final String name;
     private final String brandName;
     private final int cost;
 
-    public static boolean addBrand(final String brandName) throws NullPointerException {
-        if (brandName == null) {
-            throw new NullPointerException("bad brandName");
+    public static void createBrandsList() {
+        for (final String brand : BRANDS) {
+            if (!BRANDS_LIST.contains(brand)) {
+                BRANDS_LIST.add(brand);
+            }
         }
-        if (!brandsList.contains(brandName)) {
-            brandsList.add(brandName);
-            Collections.sort(brandsList);
-            return true;
-        } else {
+        Collections.sort(BRANDS_LIST);
+    }
+
+    public static String getRandomBrand() {
+        if (BRANDS_LIST.isEmpty()) {
+            createBrandsList();
+        }
+        return Peripheral.BRANDS_LIST.get((int) (Math.random() * Peripheral.BRANDS_LIST.size()));
+    }
+
+    public static boolean addBrand(final String brandName) {
+        if (BRANDS_LIST.contains(brandName)) {
             return false;
+        } else {
+            BRANDS_LIST.add(brandName);
+            Collections.sort(BRANDS_LIST);
+            return true;
         }
     }
 
-    public Peripheral(final String name, final String brandName, final int cost) throws IllegalArgumentException, NullPointerException {
-        if (brandsList.isEmpty()) {
+    public Peripheral(@NotNull final String name, final String brandName, final int cost) throws IllegalArgumentException {
+        if (BRANDS_LIST.isEmpty()) {
             createBrandsList();
         }
-        if (!brandsList.contains(brandName)) {
-            throw new IllegalArgumentException("no such brandName in brandsList");
-        }
-        if (name == null) {
-            throw new NullPointerException("name is null");
+        if (!BRANDS_LIST.contains(brandName)) {
+            throw new IllegalArgumentException("no such brandName in BRANDS_LIST");
         }
         this.name = name;
         this.brandName = brandName;

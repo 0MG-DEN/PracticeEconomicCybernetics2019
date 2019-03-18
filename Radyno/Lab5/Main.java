@@ -7,6 +7,8 @@ import java.util.Comparator;
 public class Main {
     private static final int WINDOW_HEIGHT = 500, WINDOW_WIDTH = 400;
 
+    private Main() {}
+
     public static void main(final String[] args) {
         final JFrame frame = new JFrame();
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);

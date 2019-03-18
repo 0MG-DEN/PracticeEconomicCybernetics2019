@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.Comparator;
 
-public class Main {
+public final class Main {
     private static final int WINDOW_HEIGHT = 500, WINDOW_WIDTH = 400;
 
     private Main() {}

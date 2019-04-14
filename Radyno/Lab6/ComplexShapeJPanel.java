@@ -14,6 +14,7 @@ public class ComplexShapeJPanel extends JPanel {
     }
     
     public ComplexShapeJPanel(final Color shapeColor) {
+        super();
         this.backgroundColor = Color.white;
         this.complexShape = new ComplexShape(shapeColor);
     }
@@ -24,7 +25,11 @@ public class ComplexShapeJPanel extends JPanel {
     		this.repaint();
     	}
     }
-    
+
+    public ComplexShape getShape() {
+        return complexShape;
+    }
+
     public void setBackgroundColor(final Color color) {
     	this.backgroundColor = color;
     	this.repaint();

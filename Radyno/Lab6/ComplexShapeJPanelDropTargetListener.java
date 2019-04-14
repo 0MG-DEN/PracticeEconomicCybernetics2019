@@ -6,7 +6,7 @@ import java.awt.datatransfer.Transferable;
 
 public class ComplexShapeJPanelDropTargetListener implements DropTargetListener {
 	private static final Color DROP_COLOR = new Color(205, 225, 245);
-	ComplexShapeJPanel panel;
+	private ComplexShapeJPanel panel;
 	
 	public ComplexShapeJPanelDropTargetListener(final ComplexShapeJPanel panel) {
 		this.panel = panel;
@@ -16,7 +16,7 @@ public class ComplexShapeJPanelDropTargetListener implements DropTargetListener 
     public void drop(final DropTargetDropEvent dropEvent) {
 		panel.setBackgroundColor(Color.white);
 
-		if (dropEvent.isDataFlavorSupported(ComplexShape.complexShapeDF) && panel.complexShape == null) {
+		if (dropEvent.isDataFlavorSupported(ComplexShape.COMPLEX_SHAPE_DF) && panel.complexShape == null) {
         	dropEvent.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
         } else {
         	dropEvent.rejectDrop();
@@ -27,7 +27,7 @@ public class ComplexShapeJPanelDropTargetListener implements DropTargetListener 
         final ComplexShape complexShape;
         
         try {
-        	complexShape = (ComplexShape) transferable.getTransferData(ComplexShape.complexShapeDF);
+        	complexShape = (ComplexShape) transferable.getTransferData(ComplexShape.COMPLEX_SHAPE_DF);
         } catch (final Exception ex) {
         	dropEvent.dropComplete(false);
             return;
@@ -40,7 +40,7 @@ public class ComplexShapeJPanelDropTargetListener implements DropTargetListener 
 	@Override
 	public void dragEnter(final DropTargetDragEvent dragEvent) {
 		panel.setBackgroundColor(DROP_COLOR);
-        if (dragEvent.isDataFlavorSupported(ComplexShape.complexShapeDF)) {
+        if (dragEvent.isDataFlavorSupported(ComplexShape.COMPLEX_SHAPE_DF)) {
         	dragEvent.acceptDrag(DnDConstants.ACTION_COPY_OR_MOVE);
         }
 	}

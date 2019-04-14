@@ -5,7 +5,7 @@ import java.awt.dnd.*;
 
 public class ComplexShapeJPanelDragGestureListener implements
 		DragGestureListener {
-	ComplexShapeJPanel panel;
+	private ComplexShapeJPanel panel;
 	
 	public ComplexShapeJPanelDragGestureListener(final ComplexShapeJPanel panel) {
 		this.panel = panel;
@@ -13,12 +13,11 @@ public class ComplexShapeJPanelDragGestureListener implements
 
 	@Override
 	public void dragGestureRecognized(final DragGestureEvent event) {
-		final ComplexShape dragScribble;
-		try {			
-			dragScribble = (ComplexShape) panel.complexShape.clone();
-		} catch(final NullPointerException e) {
+		final ComplexShape shape  = this.panel.getShape();
+		if(shape == null) {
 			return;
 		}
+		final ComplexShape dragScribble = (ComplexShape) shape.clone();
         final Cursor cursor;
         switch (event.getDragAction()) {
         	case DnDConstants.ACTION_COPY:

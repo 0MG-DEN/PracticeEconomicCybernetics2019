@@ -3,7 +3,7 @@ package package1;
 import java.awt.dnd.*;
 
 public class ComplexShapeJPanelDragSourceListener implements DragSourceListener {
-	ComplexShapeJPanel panel;
+	private ComplexShapeJPanel panel;
 	
 	public ComplexShapeJPanelDragSourceListener(final ComplexShapeJPanel panel) {
 		this.panel = panel;

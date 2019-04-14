@@ -16,19 +16,19 @@ public final class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         final ComplexShapeJPanel shapePanel = new ComplexShapeJPanel();
 
-        final ComplexShapeJPanelDropTargetListener complexShapeJPanelDropTargetListener =
+        final ComplexShapeJPanelDropTargetListener panelDropTargetListener =
         	new ComplexShapeJPanelDropTargetListener(shapePanel);
 
-        final ComplexShapeJPanelDragGestureListener complexShapeJPanelDragGestureListener =
+        final ComplexShapeJPanelDragGestureListener panelDragGestureListener =
         	new ComplexShapeJPanelDragGestureListener(shapePanel);
 
         final DragSource dragSource = DragSource.getDefaultDragSource();
         dragSource.createDefaultDragGestureRecognizer(
-        		shapePanel, DnDConstants.ACTION_COPY_OR_MOVE, complexShapeJPanelDragGestureListener
+        		shapePanel, DnDConstants.ACTION_COPY_OR_MOVE, panelDragGestureListener
         		);
 
         final DropTarget dropTarget =
-        	new DropTarget(shapePanel, complexShapeJPanelDropTargetListener); 
+        	new DropTarget(shapePanel, panelDropTargetListener);
         
         shapePanel.setDropTarget(dropTarget);
         
@@ -37,14 +37,14 @@ public final class Main {
         final JMenuItem addItem = new JMenuItem("Add");
         addItem.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(final ActionEvent actionEvent) {
 				shapePanel.setShape(new ComplexShape());
 			}
         });
         final JMenuItem deleteItem = new JMenuItem("Delete");
         deleteItem.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(final ActionEvent actionEvent) {
 				shapePanel.setShape(null);
 			}
         });
@@ -55,21 +55,21 @@ public final class Main {
         final JMenuItem redItem = new JMenuItem("Red");
         redItem.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(final ActionEvent actionEvent) {
 				shapePanel.setShapeColor(Color.red);
 			}
         });
         final JMenuItem greenItem = new JMenuItem("Green");
         greenItem.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(final ActionEvent actionEvent) {
 				shapePanel.setShapeColor(Color.green);
 			}
         });
         final JMenuItem blueItem = new JMenuItem("Blue");
         blueItem.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(final ActionEvent actionEvent) {
 				shapePanel.setShapeColor(Color.blue);
 			}
         });

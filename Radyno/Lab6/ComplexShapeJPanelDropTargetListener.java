@@ -46,17 +46,17 @@ public class ComplexShapeJPanelDropTargetListener implements DropTargetListener 
 	}
 
 	@Override
-	public void dragExit(final DropTargetEvent arg0) {
+	public void dragExit(final DropTargetEvent targetEvent) {
 		panel.setBackgroundColor(Color.white);
 	}
 
 	@Override
-	public void dragOver(final DropTargetDragEvent arg0) {
+	public void dragOver(final DropTargetDragEvent dragEvent) {
 		// not needed	
 	}
 
 	@Override
-	public void dropActionChanged(final DropTargetDragEvent arg0) {
+	public void dropActionChanged(final DropTargetDragEvent dragEvent) {
 		// not needed
 	}
 }

@@ -18,22 +18,22 @@ public class ComplexShapeJPanelDragSourceListener implements DragSourceListener 
 	}
 
 	@Override
-	public void dragEnter(final DragSourceDragEvent arg0) {
+	public void dragEnter(final DragSourceDragEvent dragEvent) {
 		// not needed
 	}
 
 	@Override
-	public void dragExit(final DragSourceEvent arg0) {
+	public void dragExit(final DragSourceEvent sourceEvent) {
 		// not needed
 	}
 
 	@Override
-	public void dragOver(final DragSourceDragEvent arg0) {
+	public void dragOver(final DragSourceDragEvent dragEvent) {
 		// not needed
 	}
 
 	@Override
-	public void dropActionChanged(final DragSourceDragEvent arg0) {
+	public void dropActionChanged(final DragSourceDragEvent dragEvent) {
 		// not needed
 	}
 

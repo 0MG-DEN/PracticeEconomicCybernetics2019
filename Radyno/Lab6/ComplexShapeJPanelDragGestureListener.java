@@ -17,7 +17,6 @@ public class ComplexShapeJPanelDragGestureListener implements
 		if(shape == null) {
 			return;
 		}
-		final ComplexShape dragScribble = (ComplexShape) shape.clone();
         final Cursor cursor;
         switch (event.getDragAction()) {
         	case DnDConstants.ACTION_COPY:
@@ -29,6 +28,7 @@ public class ComplexShapeJPanelDragGestureListener implements
         	default:
         		return;
         }
+		final ComplexShape dragScribble = (ComplexShape) shape.clone();
         event.startDrag(cursor, dragScribble, new ComplexShapeJPanelDragSourceListener(this.panel));
 	}
 

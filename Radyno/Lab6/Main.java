@@ -16,19 +16,19 @@ public final class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         final ComplexShapeJPanel shapePanel = new ComplexShapeJPanel();
 
-        final ComplexShapeJPanelDropTargetListener dropTargetListener =
+        final ComplexShapeJPanelDropTargetListener targetListener =
         	new ComplexShapeJPanelDropTargetListener(shapePanel);
 
-        final ComplexShapeJPanelDragGestureListener dragGestureListener =
+        final ComplexShapeJPanelDragGestureListener gestureListener =
         	new ComplexShapeJPanelDragGestureListener(shapePanel);
 
         final DragSource dragSource = DragSource.getDefaultDragSource();
         dragSource.createDefaultDragGestureRecognizer(
-        		shapePanel, DnDConstants.ACTION_COPY_OR_MOVE, dragGestureListener
+        		shapePanel, DnDConstants.ACTION_COPY_OR_MOVE, gestureListener
         		);
 
         final DropTarget dropTarget =
-        	new DropTarget(shapePanel, dropTargetListener);
+        	new DropTarget(shapePanel, targetListener);
         
         shapePanel.setDropTarget(dropTarget);
         

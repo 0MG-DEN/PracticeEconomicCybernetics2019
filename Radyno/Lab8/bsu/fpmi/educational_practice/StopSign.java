@@ -13,7 +13,7 @@ public class StopSign extends Canvas {
         return diameter;
     }
 
-    public void setDiameter(int diameter) {
+    public void setDiameter(final int diameter) {
         this.diameter = diameter;
     }
 
@@ -21,7 +21,7 @@ public class StopSign extends Canvas {
         return backgroundColor;
     }
 
-    public void setBackgroundColor(Color backgroundColor) {
+    public void setBackgroundColor(final Color backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
 
@@ -29,12 +29,12 @@ public class StopSign extends Canvas {
         return signColor;
     }
 
-    public void setSignColor(Color signColor) {
+    public void setSignColor(final Color signColor) {
         this.signColor = signColor;
     }
     
     @Override
-    public void paint(Graphics g) {
+    public void paint(final Graphics g) {
         super.paint(g);
         g.setColor(backgroundColor);
         g.fillOval(0, 0, diameter, diameter);

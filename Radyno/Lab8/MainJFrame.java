@@ -58,7 +58,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Diameter: " + jSlider1.getValue());
 
-        jLabel2.setText("Backgound color:");
+        jLabel2.setText("Background color:");
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setSelected(true);

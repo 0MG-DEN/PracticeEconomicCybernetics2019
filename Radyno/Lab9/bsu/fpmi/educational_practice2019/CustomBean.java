@@ -122,15 +122,7 @@ public class CustomBean extends JComponent implements BeanInfo {
 
     @Override
     public MethodDescriptor[] getMethodDescriptors() {
-        final int length = CustomBean.class.getMethods().length;
-        final MethodDescriptor[] set = new MethodDescriptor[length];
-        final Method[] methods = CustomBean.class.getMethods();
-        for(int i = 0; i < length; ++i) {
-            final Method method = methods[i];
-            final MethodDescriptor descriptor = new MethodDescriptor(method);
-            set[i] = descriptor;
-        }
-        return set;
+        return null;
     }
 
     @Override

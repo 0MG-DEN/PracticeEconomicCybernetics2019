@@ -84,13 +84,13 @@ public class CustomBean extends JComponent implements BeanInfo {
 
     @Override
     public EventSetDescriptor[] getEventSetDescriptors() {
-        final EventSetDescriptor set[] = new EventSetDescriptor[1];
+        final EventSetDescriptor[] SET = new EventSetDescriptor[1];
         try {
-            set[0] = new EventSetDescriptor(this.getClass(), "AcceptEvent", AcceptEventListener.class, "acceptEvent");
+            SET[0] = new EventSetDescriptor(this.getClass(), "AcceptEvent", AcceptEventListener.class, "acceptEvent");
         } catch (IntrospectionException ie) {
             //ignored
         }
-        return set;
+        return SET;
     }
 
     @Override
@@ -100,16 +100,16 @@ public class CustomBean extends JComponent implements BeanInfo {
 
     @Override
     public PropertyDescriptor[] getPropertyDescriptors() {
-        final PropertyDescriptor set[] = new PropertyDescriptor[4];
+        final PropertyDescriptor[] SET = new PropertyDescriptor[4];
         try {
-            set[0] = new PropertyDescriptor("staticText", CustomBean.class);
-            set[1] = new PropertyDescriptor("radioButton1Text", CustomBean.class);
-            set[2] = new PropertyDescriptor("radioButton2Text", CustomBean.class);
-            set[3] = new PropertyDescriptor("buttonText", CustomBean.class);
+            SET[0] = new PropertyDescriptor("staticText", CustomBean.class);
+            SET[1] = new PropertyDescriptor("radioButton1Text", CustomBean.class);
+            SET[2] = new PropertyDescriptor("radioButton2Text", CustomBean.class);
+            SET[3] = new PropertyDescriptor("buttonText", CustomBean.class);
         } catch (IntrospectionException ie) {
             //ignored
         }
-        return set;
+        return SET;
     }
 
     @Override
@@ -120,18 +120,18 @@ public class CustomBean extends JComponent implements BeanInfo {
     @Override
     public MethodDescriptor[] getMethodDescriptors() {
         final int SIZE = CustomBean.class.getMethods().length;
-        final MethodDescriptor set[] = new MethodDescriptor[SIZE];
+        final MethodDescriptor[] SET = new MethodDescriptor[SIZE];
         for(int i = 0; i < SIZE; ++i) {
             final Method method = CustomBean.class.getMethods()[i];
-            set[i] = new MethodDescriptor(method);
+            SET[i] = new MethodDescriptor(method);
         }
-        return set;
+        return SET;
     }
 
     @Override
     public BeanInfo[] getAdditionalBeanInfo() {
-        final BeanInfo set[] = new BeanInfo[0];
-        return set;
+        final BeanInfo SET[] = new BeanInfo[0];
+        return SET;
     }
 
     @Override

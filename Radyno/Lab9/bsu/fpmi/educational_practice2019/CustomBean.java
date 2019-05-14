@@ -3,7 +3,6 @@ package bsu.fpmi.educational_practice2019;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
-import java.lang.reflect.Method;
 import java.util.*;
 import javax.swing.*;
 
@@ -122,7 +121,7 @@ public class CustomBean extends JComponent implements BeanInfo {
 
     @Override
     public MethodDescriptor[] getMethodDescriptors() {
-        return null;
+        return new MethodDescriptor[0];
     }
 
     @Override

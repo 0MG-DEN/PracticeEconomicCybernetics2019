@@ -3,6 +3,7 @@ package servlet;
 import java.io.*;
 import java.util.*;
 import java.text.*;
+import java.nio.file.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -81,21 +82,18 @@ public class RegServlet extends HttpServlet {
 			map.put(nextID++, person);
 		}
 
-		try (FileReader input = new FileReader(INDEX_PATH)) {
-			try (BufferedReader reader = new BufferedReader(input)) {
-				String line = reader.readLine();
-				while (line != null) {
-					out.println(line);
-					if (MMARK.equals(line)) {
-						printTable(out);
-					} else if (WMARK.equals(line) && !register) {
-						out.println(WARNING);
-					}
-					line = reader.readLine();
+		try (BufferedReader reader = Files.newBufferedReader(Paths.get(INDEX_PATH))) {
+			String line = reader.readLine();
+			while (line != null) {
+				out.println(line);
+				if (MMARK.equals(line)) {
+					printTable(out);
+				} else if (WMARK.equals(line) && !register) {
+					out.println(WARNING);
 				}
-				reader.close();
+				line = reader.readLine();
 			}
-			input.close();
+			reader.close();
 		}
 
 		out.close();

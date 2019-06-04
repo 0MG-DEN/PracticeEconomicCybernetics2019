@@ -55,9 +55,9 @@ public class RegServlet extends HttpServlet {
 			}
 		}
 		
-		String path = "D:/index.html";
-		FileReader input = new FileReader(path);
-		BufferedReader reader = new BufferedReader(input);
+		final String path = "D:/index.html";
+		final FileReader input = new FileReader(path);
+		final BufferedReader reader = new BufferedReader(input);
 
 		String line;
 		while ((line = reader.readLine()) != null) {

@@ -20,30 +20,39 @@ public class RegServlet extends HttpServlet {
 		map = new HashMap<>();
 	}
 
-	@Override
-	protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
-			throws ServletException, IOException {
-		final ServletOutputStream out = response.getOutputStream();
-
+	private static Person createPerson(final HttpServletRequest request) {
 		final String inName = request.getParameter("name");
 		final String inSurname = request.getParameter("surname");
 		final String inTelephone = request.getParameter("telephone");
 		final String inCity = request.getParameter("city");
 		final String inAddress = request.getParameter("address");
 
-		final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 		Date inBirthDate;
 		try {
-			inBirthDate = dateFormat.parse(request.getParameter("birthDate"));
-		} catch (NullPointerException | ParseException e) {
+			String inBirthDateStr = request.getParameter("birthDate");
+			if(inBirthDateStr != null) {				
+				inBirthDate = dateFormat.parse(inBirthDateStr);
+			} else {
+				inBirthDate = new Date();
+			}
+		} catch (ParseException e) {
 			inBirthDate = new Date();
 		}
+		
+		return new Person(inName, inSurname, inBirthDate, inTelephone, inCity, inAddress);
+	}
+	
+	@Override
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
+		final ServletOutputStream out = response.getOutputStream();
 
-		final Person newPerson = new Person(inName, inSurname, inBirthDate, inTelephone, inCity, inAddress);
-
+		final Person newPerson = createPerson(request);
+		
 		boolean register = true;
 		if (newPerson.check()) {
-			for (Map.Entry<Integer, Person> entry : map.entrySet()) {
+			for (final Map.Entry<Integer, Person> entry : map.entrySet()) {
 				final Person value = entry.getValue();
 				if (value.name.equals(newPerson.name) && value.surname.equals(newPerson.surname)) {
 					register = false;
@@ -59,19 +68,20 @@ public class RegServlet extends HttpServlet {
 		final FileReader input = new FileReader(path);
 		final BufferedReader reader = new BufferedReader(input);
 
-		String line;
-		while ((line = reader.readLine()) != null) {
+		String line = reader.readLine();
+		while (line != null) {
 			out.println(line);
-			if (line.equals("<!--map-->")) {
+			if ("<!--map-->".equals(line)) {
 				for (Map.Entry<Integer, Person> entry : map.entrySet()) {
 					out.println("<tr>");
 					final Person value = entry.getValue();
 					out.println(value.toHTMLTableRow());
 					out.println("</tr>");
 				}
-			} else if (line.equals("<!--warning-->") && !register) {
+			} else if ("<!--warning-->".equals(line) && !register) {
 				out.println(WARNING);
 			}
+			line = reader.readLine();
 		}
 		reader.close();
 		input.close();
@@ -79,12 +89,12 @@ public class RegServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
 		this.doGet(request, response);
 	}
 
-	private class Person {
+	private static class Person {
 		private final String name;
 		private final String surname;
 		private final Date birthDate;
@@ -93,8 +103,8 @@ public class RegServlet extends HttpServlet {
 		private final String address;
 		private final Date regDate;
 
-		public Person(final String name, final String surname, final Date birthDate, final String telephone,
-				final String city, final String address) {
+		public Person(final String name, final String surname, final Date birthDate,
+				final String telephone, final String city, final String address) {
 			this.name = name;
 			this.surname = surname;
 			this.birthDate = birthDate;
@@ -105,7 +115,7 @@ public class RegServlet extends HttpServlet {
 		}
 
 		public boolean check() {
-			return (name != null) && (surname != null) && (telephone != null) && (city != null) && (address != null);
+			return name != null && surname != null && telephone != null && city != null && address != null;
 		}
 
 		public String toHTMLTableRow() {
@@ -120,7 +130,7 @@ public class RegServlet extends HttpServlet {
 			builder.append(surname);
 			builder.append(closeTag);
 
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 			builder.append(openTag);
 			builder.append(dateFormat.format(birthDate));
 			builder.append(closeTag);
@@ -135,7 +145,7 @@ public class RegServlet extends HttpServlet {
 			builder.append(address);
 			builder.append(closeTag);
 
-			dateFormat = new SimpleDateFormat("HH:mm:ss dd.MM.yyyy");
+			dateFormat = new SimpleDateFormat("HH:mm:ss dd.MM.yyyy", Locale.US);
 			builder.append(openTag);
 			builder.append(dateFormat.format(regDate));
 			builder.append(closeTag);

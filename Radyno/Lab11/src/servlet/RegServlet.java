@@ -12,8 +12,10 @@ public class RegServlet extends HttpServlet {
 
 	private Integer nextID;
 	private Map<Integer, Person> map;
-	private static final String WARNING =
-	"<font title=\"Name and surname you've entered are already registered.\" color=\"red\">Invalid data!</font>";
+	private static final String WARNING = "<font title=\"Name and surname you've entered are already registered.\" color=\"red\">Invalid data!</font>";
+	private static final String WMARK = "<!--warning-->";
+	private static final String MMARK = "<!--map-->";
+	private static final String INDEX_PATH = "D:/index.html";
 
 	public void init() {
 		nextID = 1;
@@ -30,17 +32,41 @@ public class RegServlet extends HttpServlet {
 		final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 		Date inBirthDate;
 		try {
-			String inBirthDateStr = request.getParameter("birthDate");
-			if(inBirthDateStr != null) {				
-				inBirthDate = dateFormat.parse(inBirthDateStr);
-			} else {
+			final String inBirthDateStr = request.getParameter("birthDate");
+			if (inBirthDateStr == null) {
 				inBirthDate = new Date();
+			} else {
+				inBirthDate = dateFormat.parse(inBirthDateStr);
 			}
 		} catch (ParseException e) {
 			inBirthDate = new Date();
 		}
-		
+
 		return new Person(inName, inSurname, inBirthDate, inTelephone, inCity, inAddress);
+	}
+
+	private void printTable(final ServletOutputStream out) throws IOException {
+		for (final Map.Entry<Integer, Person> entry : map.entrySet()) {
+			out.println("<tr>");
+			final Person value = entry.getValue();
+			out.println(value.toHTMLTableRow());
+			out.println("</tr>");
+		}
+	}
+
+	boolean checkPerson(final Person person) {
+		boolean register = false;
+		if (person.check()) {
+			register = true;
+			for (final Map.Entry<Integer, Person> entry : map.entrySet()) {
+				final Person value = entry.getValue();
+				if (value.name.equals(person.name) && value.surname.equals(person.surname)) {
+					register = false;
+					break;
+				}
+			}
+		}
+		return register;
 	}
 	
 	@Override
@@ -48,43 +74,29 @@ public class RegServlet extends HttpServlet {
 			throws ServletException, IOException {
 		final ServletOutputStream out = response.getOutputStream();
 
-		final Person newPerson = createPerson(request);
-		
-		boolean register = true;
-		if (newPerson.check()) {
-			for (final Map.Entry<Integer, Person> entry : map.entrySet()) {
-				final Person value = entry.getValue();
-				if (value.name.equals(newPerson.name) && value.surname.equals(newPerson.surname)) {
-					register = false;
-					break;
-				}
-			}
-			if (register) {
-				map.put(nextID++, newPerson);
-			}
-		}
-		
-		final String path = "D:/index.html";
-		final FileReader input = new FileReader(path);
-		final BufferedReader reader = new BufferedReader(input);
+		final Person person = createPerson(request);
 
-		String line = reader.readLine();
-		while (line != null) {
-			out.println(line);
-			if ("<!--map-->".equals(line)) {
-				for (Map.Entry<Integer, Person> entry : map.entrySet()) {
-					out.println("<tr>");
-					final Person value = entry.getValue();
-					out.println(value.toHTMLTableRow());
-					out.println("</tr>");
-				}
-			} else if ("<!--warning-->".equals(line) && !register) {
-				out.println(WARNING);
-			}
-			line = reader.readLine();
+		boolean register = checkPerson(person);
+		if (register) {
+			map.put(nextID++, person);
 		}
-		reader.close();
+		
+		final FileReader input = new FileReader(INDEX_PATH);
+		try (final BufferedReader reader = new BufferedReader(input)) {
+			String line = reader.readLine();
+			while (line != null) {
+				out.println(line);
+				if (MMARK.equals(line)) {
+					printTable(out);
+				} else if (WMARK.equals(line) && !register) {
+					out.println(WARNING);
+				}
+				line = reader.readLine();
+			}
+			reader.close();
+		}
 		input.close();
+
 		out.close();
 	}
 
@@ -103,8 +115,8 @@ public class RegServlet extends HttpServlet {
 		private final String address;
 		private final Date regDate;
 
-		public Person(final String name, final String surname, final Date birthDate,
-				final String telephone, final String city, final String address) {
+		public Person(final String name, final String surname, final Date birthDate, final String telephone,
+				final String city, final String address) {
 			this.name = name;
 			this.surname = surname;
 			this.birthDate = birthDate;

@@ -54,7 +54,7 @@ public class RegServlet extends HttpServlet {
 		}
 	}
 
-	boolean checkPerson(final Person person) {
+	private boolean checkPerson(final Person person) {
 		boolean register = false;
 		if (person.check()) {
 			register = true;
@@ -68,7 +68,7 @@ public class RegServlet extends HttpServlet {
 		}
 		return register;
 	}
-	
+
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
@@ -76,26 +76,27 @@ public class RegServlet extends HttpServlet {
 
 		final Person person = createPerson(request);
 
-		boolean register = checkPerson(person);
+		final boolean register = checkPerson(person);
 		if (register) {
 			map.put(nextID++, person);
 		}
-		
-		final FileReader input = new FileReader(INDEX_PATH);
-		try (final BufferedReader reader = new BufferedReader(input)) {
-			String line = reader.readLine();
-			while (line != null) {
-				out.println(line);
-				if (MMARK.equals(line)) {
-					printTable(out);
-				} else if (WMARK.equals(line) && !register) {
-					out.println(WARNING);
+
+		try (FileReader input = new FileReader(INDEX_PATH)) {
+			try (BufferedReader reader = new BufferedReader(input)) {
+				String line = reader.readLine();
+				while (line != null) {
+					out.println(line);
+					if (MMARK.equals(line)) {
+						printTable(out);
+					} else if (WMARK.equals(line) && !register) {
+						out.println(WARNING);
+					}
+					line = reader.readLine();
 				}
-				line = reader.readLine();
+				reader.close();
 			}
-			reader.close();
+			input.close();
 		}
-		input.close();
 
 		out.close();
 	}
